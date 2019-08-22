@@ -5,6 +5,8 @@
  */
 package cidadeestado;
 
+import br.com.ab.controller.TelaDePesquisaController;
+import br.com.ab.dao.TableModelInterface;
 import br.com.ab.model.Cidade;
 import br.com.ab.model.Estado;
 import javafx.application.Application;
@@ -21,10 +23,23 @@ public class CidadeEstado extends Application {
     
     @Override
     public void start(Stage stage) throws Exception {
-        Parent root = FXMLLoader.load(getClass().getResource("FXMLDocument.fxml"));
+        //Parent root = FXMLLoader.load(getClass().getResource("FXMLDocument.fxml"));
         
-        Scene scene = new Scene(root);
+        FXMLLoader loaderPesquisa = 
+                new FXMLLoader(
+                 getClass().getResource(
+                         "/br/com/ab/view/TelaDePesquisa.fxml"
+                 )
+                );
+        TelaDePesquisaController tpc =
+                (TelaDePesquisaController)
+                loaderPesquisa.getController();
         
+        Parent root = loaderPesquisa.load();
+        TableModelInterface tm = new FalseDaoCidade();
+       tpc.configure(tm);
+        
+        Scene scene = new Scene(root);        
         stage.setScene(scene);
         stage.show();
     }
@@ -33,7 +48,8 @@ public class CidadeEstado extends Application {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
-       // launch(args);
+       launch(args);
+       /**
         Estado e = new Estado();
         e.setId(1);
         e.setNome("PARANÁ");
@@ -46,7 +62,7 @@ public class CidadeEstado extends Application {
         
         System.out.println(c.getEstado().getNome());
         System.out.println(c.getEstado().getNome().replace("A", "I"));
-        
+        */
     }
     
 }
