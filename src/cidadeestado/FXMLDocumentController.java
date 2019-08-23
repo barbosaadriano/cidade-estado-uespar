@@ -10,7 +10,9 @@ import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.layout.StackPane;
 
 /**
  *
@@ -18,18 +20,42 @@ import javafx.scene.control.Label;
  */
 public class FXMLDocumentController implements Initializable {
     
+   
     @FXML
-    private Label label;
-    
+    private Button btnEstado;
     @FXML
-    private void handleButtonAction(ActionEvent event) {
-        System.out.println("You clicked me!");
-        label.setText("Hello World!");
-    }
+    private Button btnCidade;
+    @FXML
+    private StackPane container;
     
+   
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         // TODO
     }    
+
+    public Button getBtnEstado() {
+        return btnEstado;
+    }
+
+    public void setBtnEstado(Button btnEstado) {
+        this.btnEstado = btnEstado;
+    }
+
+    public Button getBtnCidade() {
+        return btnCidade;
+    }
+
+    public void setBtnCidade(Button btnCidade) {
+        this.btnCidade = btnCidade;
+    }
+
+    public StackPane getContainer() {
+        return container;
+    }
+
+    public void setContainer(StackPane container) {
+        this.container = container;
+    }
     
 }

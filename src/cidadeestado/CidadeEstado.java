@@ -10,6 +10,7 @@ import br.com.ab.dao.TableModelInterface;
 import br.com.ab.model.Cidade;
 import br.com.ab.model.Estado;
 import javafx.application.Application;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
@@ -23,21 +24,32 @@ public class CidadeEstado extends Application {
     
     @Override
     public void start(Stage stage) throws Exception {
-        //Parent root = FXMLLoader.load(getClass().getResource("FXMLDocument.fxml"));
+        // Carrega o leiaute e o controller Principal
+        FXMLLoader loaderPrincipal =  new FXMLLoader(getClass().getResource("FXMLDocument.fxml"));
+        Parent root = loaderPrincipal.load();                   
+        FXMLDocumentController pc = loaderPrincipal.getController();
+        // Carrega o leiaute e o controller de pesquisa
+        FXMLLoader loaderPesquisa =  new FXMLLoader(getClass().getResource("/br/com/ab/view/TelaDePesquisa.fxml"));
+        Parent bp = loaderPesquisa.load();                   
+        TelaDePesquisaController tpc = loaderPesquisa.getController();
         
-        FXMLLoader loaderPesquisa = 
-                new FXMLLoader(
-                 getClass().getResource(
-                         "/br/com/ab/view/TelaDePesquisa.fxml"
-                 )
-                );
-        TelaDePesquisaController tpc =
-                (TelaDePesquisaController)
-                loaderPesquisa.getController();
+        pc.getBtnCidade().addEventHandler(ActionEvent.ACTION, (event) -> {
+            pc.getContainer().getChildren().clear();
+            pc.getContainer().getChildren().add(bp);
+            TableModelInterface tm = new FalseDaoCidade();
+            tpc.configure(tm);
+            stage.setTitle("Pesquisa de Cidade!");
+        });
+        pc.getBtnEstado().addEventHandler(ActionEvent.ACTION, (event) -> {
+             pc.getContainer().getChildren().clear();
+            pc.getContainer().getChildren().add(bp);
+            TableModelInterface tm = new FalseDaoEstado();
+            tpc.configure(tm);
+            stage.setTitle("Pesquisa de estado!");
+        });
         
-        Parent root = loaderPesquisa.load();
-        TableModelInterface tm = new FalseDaoCidade();
-       tpc.configure(tm);
+        
+        
         
         Scene scene = new Scene(root);        
         stage.setScene(scene);
