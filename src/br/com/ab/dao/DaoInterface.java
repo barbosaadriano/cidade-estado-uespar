@@ -1,6 +1,7 @@
 
 package br.com.ab.dao;
 
+import br.com.ab.contracts.ICriteria;
 import java.util.ArrayList;
 
 /**
@@ -13,7 +14,7 @@ public interface DaoInterface {
      * @param c String Critérios
      * @return 
      */
-    public ArrayList<Object> getByCriterios(String c);
+    public ArrayList<Object> getByCriterios(ICriteria c);
     /**
      * Salva um objeto qualquer
      * @param o Objeto

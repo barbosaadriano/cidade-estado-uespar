@@ -80,6 +80,17 @@ public class TestaFiltro {
         
         System.out.println(upd.getSql());
         
+        ISqlInsert ins = new ISqlInsert("cidade");
+        
+        ins.getRowData().put("nome", "Palotina");
+        ins.getRowData().put("uf", "PR");
+        ins.getRowData().put("id", "NULL");
+        //ins.setCriterio(crit);
+        System.out.println(ins.getSql());
+        
+        ISqlDelete del = new ISqlDelete("cidade");
+        del.setCriterio(crit);
+        System.out.println(del.getSql());
     }
     
 }

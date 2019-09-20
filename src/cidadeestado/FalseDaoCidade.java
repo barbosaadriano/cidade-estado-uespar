@@ -1,6 +1,7 @@
 
 package cidadeestado;
 
+import br.com.ab.contracts.ICriteria;
 import br.com.ab.dao.DaoInterface;
 import br.com.ab.dao.TableModelInterface;
 import br.com.ab.model.Cidade;
@@ -48,7 +49,7 @@ public class FalseDaoCidade implements
     }
 
     @Override
-    public ArrayList<Object> getByCriterios(String c) {
+    public ArrayList<Object> getByCriterios(ICriteria c) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
