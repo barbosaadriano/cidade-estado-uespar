@@ -22,7 +22,7 @@ import java.util.List;
  */
 public abstract class AbstractDao implements DaoInterface{
     
-    private Connection conn;
+    protected Connection conn;
     
     protected abstract String getTableName();
     // Este método é um FactoryMethod (padrão de projeto)
