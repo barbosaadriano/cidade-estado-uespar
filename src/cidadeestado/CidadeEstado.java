@@ -7,8 +7,6 @@ package cidadeestado;
 
 import br.com.ab.controller.TelaDePesquisaController;
 import br.com.ab.dao.TableModelInterface;
-import br.com.ab.model.Cidade;
-import br.com.ab.model.Estado;
 import javafx.application.Application;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXMLLoader;
