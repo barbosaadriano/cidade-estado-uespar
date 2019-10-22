@@ -34,7 +34,13 @@ public class Estado {
     public void setUf(String uf) {
         this.uf = uf;
     }
-    
+
+    @Override
+    public String toString() {
+        return String.valueOf(id) + " - "+ this.nome + " - "+ this.uf;
+    }
+
+
     
     
 }

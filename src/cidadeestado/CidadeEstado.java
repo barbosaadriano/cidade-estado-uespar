@@ -6,7 +6,10 @@
 package cidadeestado;
 
 import br.com.ab.controller.TelaDePesquisaController;
+import br.com.ab.dao.CidadeDao;
+import br.com.ab.dao.EstadoDao;
 import br.com.ab.dao.TableModelInterface;
+import br.com.ab.services.Conexao;
 import javafx.application.Application;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXMLLoader;
@@ -34,14 +37,16 @@ public class CidadeEstado extends Application {
         pc.getBtnCidade().addEventHandler(ActionEvent.ACTION, (event) -> {
             pc.getContainer().getChildren().clear();
             pc.getContainer().getChildren().add(bp);
-            TableModelInterface tm = new FalseDaoCidade();
+            //TableModelInterface tm = new FalseDaoCidade();
+            TableModelInterface tm = new CidadeDao(Conexao.getInstance().getConn());
             tpc.configure(tm);
             stage.setTitle("Pesquisa de Cidade!");
         });
         pc.getBtnEstado().addEventHandler(ActionEvent.ACTION, (event) -> {
              pc.getContainer().getChildren().clear();
             pc.getContainer().getChildren().add(bp);
-            TableModelInterface tm = new FalseDaoEstado();
+            //TableModelInterface tm = new FalseDaoEstado();
+            TableModelInterface tm = new EstadoDao(Conexao.getInstance().getConn());
             tpc.configure(tm);
             stage.setTitle("Pesquisa de estado!");
         });

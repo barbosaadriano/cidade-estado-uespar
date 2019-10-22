@@ -5,6 +5,7 @@ import br.com.ab.contracts.IFilter;
 import br.com.ab.contracts.ISqlInsert;
 import br.com.ab.contracts.ISqlInstruction;
 import br.com.ab.contracts.ISqlUpdate;
+import br.com.ab.model.Cidade;
 import br.com.ab.model.Estado;
 import java.math.BigInteger;
 import java.sql.Connection;
@@ -18,15 +19,18 @@ import javafx.scene.control.cell.PropertyValueFactory;
  *
  * @author drink
  */
-public class EstadoDao extends AbstractDao implements TableModelInterface {
+public class CidadeDao extends AbstractDao implements TableModelInterface {
 
-    public EstadoDao(Connection conn) {
+    private EstadoDao daoEstado;
+
+    public CidadeDao(Connection conn) {
         this.conn = conn;
+        daoEstado = new EstadoDao(conn);
     }
 
     @Override
     protected String getTableName() {
-        return "estados";
+        return "cidades";
     }
 
     @Override
@@ -35,21 +39,25 @@ public class EstadoDao extends AbstractDao implements TableModelInterface {
         ISqlInstruction sql = this.newInstruction(ISqlInstruction.QueryType.SELECT);
         // Parametriza a instrução SQL
         sql.setCriterio(c);
-        ArrayList<Estado> ests = new ArrayList<>();
+        ArrayList<Cidade> ests = new ArrayList<>();
         try {
             // Executa a sql
             ArrayList<HashMap<String, Object>> dados = this.executeSql(sql);
             if (!dados.isEmpty()) {
-             
                 for (HashMap<String, Object> row : dados) {
                     // Cria um estado para cada linha que retornou do banco
-                    Estado est = new Estado();
-                    est.setId( ((BigInteger) row.get("id")).longValue() );
-                    est.setNome((String) row.get("nome"));
-                    est.setUf((String) row.get("sigla"));
-                    ests.add(est);
+                    Cidade cid = new Cidade();
+                    cid.setId(((BigInteger) row.get("id")).longValue());
+                    cid.setNome((String) row.get("nome"));
+                    if (((BigInteger) row.get("estado_id")).intValue() > 0) {
+                        cid.setEstado(
+                                ((ArrayList<Estado>) daoEstado.getById(
+                                        ((BigInteger) row.get("estado_id")).longValue())).get(0)
+                        );
+                    }
+                    ests.add(cid);
                 }
-              
+
             }
         } catch (SQLException e) {
             System.out.println(e.getMessage());
@@ -59,13 +67,13 @@ public class EstadoDao extends AbstractDao implements TableModelInterface {
 
     @Override
     public void salvar(Object o) {
-        Estado estado = (Estado) o;
+        Cidade cid = (Cidade) o;
         ISqlInstruction sql = this.newInstruction(ISqlInstruction.QueryType.INSERT);
-        if (estado.getId() > 0) {
+        if (cid.getId() > 0) {
             sql = this.newInstruction(ISqlInstruction.QueryType.UPDATE);
         }
-        ((ISqlUpdate) sql).addRowData("nome", estado.getNome());
-        ((ISqlUpdate) sql).addRowData("sigla", estado.getUf());
+        ((ISqlUpdate) sql).addRowData("nome", cid.getNome());
+        ((ISqlUpdate) sql).addRowData("estado_id", Long.toString(cid.getEstado().getId()));
         if (sql instanceof ISqlUpdate) {
             //update
             ICriteria criterio = new ICriteria();
@@ -73,7 +81,7 @@ public class EstadoDao extends AbstractDao implements TableModelInterface {
                     new IFilter(
                             "id",
                             "=",
-                            Long.toString(estado.getId()) //String.valueOf()
+                            Long.toString(cid.getId()) //String.valueOf()
                     )
             );
             sql.setCriterio(criterio);
@@ -83,10 +91,10 @@ public class EstadoDao extends AbstractDao implements TableModelInterface {
         }
         try {
             Object ret = this.executeSql(sql);
-            if ( sql instanceof ISqlInsert && ret instanceof Long) {
-                estado.setId((Long)ret);
+            if (sql instanceof ISqlInsert && ret instanceof Long) {
+                cid.setId((Long) ret);
             }
-                
+
         } catch (SQLException ex) {
             System.out.println(ex.getMessage());
         }
@@ -94,14 +102,14 @@ public class EstadoDao extends AbstractDao implements TableModelInterface {
 
     @Override
     public void remover(Object o) {
-        Estado estado = (Estado) o;
-        if (estado.getId()>0) {
+        Cidade cid = (Cidade) o;
+        if (cid.getId() > 0) {
             ISqlInstruction del = this.newInstruction(ISqlInstruction.QueryType.DELETE);
             ICriteria criterio = new ICriteria();
-            String vlo = String.valueOf(estado.getId());
-            IFilter filtro = new IFilter("id", "=", vlo);            
+            String vlo = String.valueOf(cid.getId());
+            IFilter filtro = new IFilter("id", "=", vlo);
             criterio.addExpressions(filtro);
-           ///continuação
+            ///continuação
             del.setCriterio(criterio);
             try {
                 executeSql(del);
@@ -120,23 +128,20 @@ public class EstadoDao extends AbstractDao implements TableModelInterface {
 
     @Override
     public ArrayList<TableColumn<Object, Object>> getCols() {
-         ArrayList<TableColumn<Object,Object>> cols = new
-            ArrayList<>();
-        TableColumn<Object,Object> nome = new 
-            TableColumn<>("Nome estado");
+        ArrayList<TableColumn<Object, Object>> cols = new ArrayList<>();
+        TableColumn<Object, Object> nome = new TableColumn<>("Cidade Nome");
         nome.setCellValueFactory(new PropertyValueFactory<>("nome"));
         cols.add(nome);
-        TableColumn<Object,Object> uf = new 
-            TableColumn<>("Sigla");
-        uf.setCellValueFactory(new PropertyValueFactory<>("uf"));
-        cols.add(uf);
+        TableColumn<Object, Object> est = new TableColumn<>("Estado");
+        est.setCellValueFactory(new PropertyValueFactory<>("estado"));
+        cols.add(est);
         return cols;
     }
 
     @Override
     public ArrayList<Object> pesquisar(String param) {
         ICriteria criterio = new ICriteria();
-        criterio.addExpressions(new IFilter("nome", "like", "%"+param+"%"));
+        criterio.addExpressions(new IFilter("nome", "like", "%" + param + "%"));
         return this.getByCriterios(criterio);
     }
 
