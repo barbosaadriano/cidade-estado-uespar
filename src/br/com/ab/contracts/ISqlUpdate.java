@@ -40,7 +40,8 @@ public class ISqlUpdate extends ISqlInstruction {
                 this.sql.length()-1);
         this.sql.append(" WHERE ");
         this.sql.append(this.criterio.dump());
-        return this.sql.toString().replace("'NULL'", "NULL");
+        String str = this.sql.toString().replace("'NULL'", "NULL");
+        return str.replace("'null'", "NULL");
     } 
 
     public HashMap getRowData() {

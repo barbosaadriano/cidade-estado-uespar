@@ -8,8 +8,8 @@ import java.util.HashMap;
  */
 public class ISqlInsert extends ISqlInstruction {
 
-    private HashMap<String,String> rowData;
-    
+    private HashMap<String, String> rowData;
+
     public ISqlInsert(String nomeDaTabela) {
         super(nomeDaTabela);
         this.rowData = new HashMap<>();
@@ -22,9 +22,10 @@ public class ISqlInsert extends ISqlInstruction {
         this.sql.append(" (`");
         this.sql.append(String.join("`, `", this.rowData.keySet()));
         this.sql.append("`) VALUES ('");
-        this.sql.append(String.join("', '", this.rowData.values() ));
+        this.sql.append(String.join("', '", this.rowData.values()));
         this.sql.append("')");
-        return this.sql.toString().replace("'NULL'", "NULL");
+        String str = this.sql.toString().replace("'NULL'", "NULL");
+        return str.replace("'null'", "NULL");
     }
 
     @Override
@@ -39,7 +40,5 @@ public class ISqlInsert extends ISqlInstruction {
     public void setRowData(HashMap<String, String> rowData) {
         this.rowData = rowData;
     }
-    
-    
-    
+
 }

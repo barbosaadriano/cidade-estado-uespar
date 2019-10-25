@@ -5,13 +5,12 @@ import java.net.URL;
 import java.util.ResourceBundle;
 import javafx.collections.FXCollections;
 import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.Parent;
 import javafx.scene.control.Button;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
-import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.BorderPane;
 
 /**
@@ -61,6 +60,12 @@ public class TelaDePesquisaController implements Initializable {
                 )
         );
     }
+    public Parent getLayout() {
+        return this.pnPesquisa;
+    }
 
-
+    public TableView<Object> getTblDados() {
+        return tblDados;
+    }
+    
 }
