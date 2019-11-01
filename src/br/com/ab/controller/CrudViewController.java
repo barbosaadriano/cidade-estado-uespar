@@ -7,6 +7,7 @@ package br.com.ab.controller;
 
 import br.com.ab.contracts.CrudInterface;
 import br.com.ab.contracts.FormControllerInterface;
+import br.com.ab.contracts.LookUpControllerInterface;
 import br.com.ab.dao.DaoInterface;
 import java.net.URL;
 import java.util.Optional;
@@ -121,6 +122,21 @@ public class CrudViewController implements Initializable,
         this.dao = dao;
         this.pc = pc;
         this.fc = fc;
+        
+        if (fc instanceof LookUpControllerInterface ){
+            ((LookUpControllerInterface)fc)
+                    .hasActiveLookup()
+                    .addListener((observable, oldValue, newValue) -> {
+                        if (newValue) {
+                            btCancelar.setDisable(true);
+                            btnSalvar.setDisable(true);
+                        } else {
+                            btCancelar.setDisable(!true);
+                            btnSalvar.setDisable(false);
+                        }
+                    });
+        
+        }
         
           pc.getTblDados()
                 .getSelectionModel()
