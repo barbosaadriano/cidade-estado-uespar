@@ -11,7 +11,6 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
-import javafx.scene.control.Label;
 import javafx.scene.layout.StackPane;
 
 /**
@@ -27,6 +26,8 @@ public class FXMLDocumentController implements Initializable {
     private Button btnCidade;
     @FXML
     private StackPane container;
+    @FXML
+    private Button btnInicio;
     
    
     @Override
@@ -56,6 +57,11 @@ public class FXMLDocumentController implements Initializable {
 
     public void setContainer(StackPane container) {
         this.container = container;
+    }
+
+    @FXML
+    private void inicioClick(ActionEvent event) {
+        container.getChildren().clear();
     }
     
 }

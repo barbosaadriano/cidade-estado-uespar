@@ -12,6 +12,7 @@
       <items>
         <Button fx:id="btnEstado" mnemonicParsing="false" text="Pesquisar Estado" />
         <Button fx:id="btnCidade" mnemonicParsing="false" text="Pesquisar Cidade" />
+        <Button fx:id="btnInicio" mnemonicParsing="false" onAction="#inicioClick" prefWidth="126.0" text="Início" />
       </items>
     </ToolBar>
     <StackPane fx:id="container" prefHeight="569.0" prefWidth="800.0" />

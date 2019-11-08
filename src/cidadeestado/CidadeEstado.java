@@ -5,22 +5,10 @@
  */
 package cidadeestado;
 
-import br.com.ab.contracts.CrudInterface;
-import br.com.ab.contracts.FormControllerInterface;
-import br.com.ab.contracts.LookUpControllerInterface;
-import br.com.ab.controller.LookUpController;
-import br.com.ab.controller.TelaDePesquisaController;
-import br.com.ab.dao.CidadeDao;
-import br.com.ab.dao.DaoInterface;
-import br.com.ab.dao.EstadoDao;
-import br.com.ab.dao.TableModelInterface;
 import br.com.ab.factories.CidadeCrudBuilder;
 import br.com.ab.factories.CrudControllerFactory;
 import br.com.ab.factories.EstadoCrudBuilder;
 import br.com.ab.factories.ViewFactory;
-import br.com.ab.services.Conexao;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javafx.application.Application;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXMLLoader;
@@ -43,7 +31,7 @@ public class CidadeEstado extends Application {
         Parent root = ld.load();
         //Carrega o controller do formulário principal
         FXMLDocumentController pc = ld.getController();
-        
+
         // Obtém a instância do CrudControllerFactory
         CrudControllerFactory ccf = CrudControllerFactory.getInstance();
         //Fabrica o controller
@@ -52,11 +40,6 @@ public class CidadeEstado extends Application {
         ccf.getCrudConfigurer().put("cidade", CidadeCrudBuilder.getCidadeConfigurer());
         //Adiciona um configurador para o nome estado
         ccf.getCrudConfigurer().put("estado", EstadoCrudBuilder.getEstadoConfigurer());
-        
-        // limpa o conatainer do form principal
-        pc.getContainer().getChildren().clear();
-        // adiciona no container o form padrão de crud
-        pc.getContainer().getChildren().add(ccf.getCrudController().getLayout());
 
         //adiciona listener no botão cidade da tela principal
         pc.getBtnCidade().addEventHandler(ActionEvent.ACTION, (event) -> {
@@ -66,6 +49,11 @@ public class CidadeEstado extends Application {
             } catch (Exception ex) {
                 System.out.println(ex.getMessage());
             }
+            // limpa o conatainer do form principal
+            pc.getContainer().getChildren().clear();
+            // adiciona no container o form padrão de crud
+            pc.getContainer().getChildren().add(ccf.getCrudController().getLayout());
+
             // atualiza o título da tela principal
             stage.setTitle("Pesquisa de Cidade!");
         });
@@ -77,6 +65,11 @@ public class CidadeEstado extends Application {
             } catch (Exception ex) {
                 System.out.println(ex.getMessage());
             }
+            // limpa o conatainer do form principal
+            pc.getContainer().getChildren().clear();
+            // adiciona no container o form padrão de crud
+            pc.getContainer().getChildren().add(ccf.getCrudController().getLayout());
+
             // atualiza o título da tela principal
             stage.setTitle("Pesquisa de estado!");
         });
