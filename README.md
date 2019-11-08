@@ -1,22 +1,16 @@
-# Aula 01
-- Feito Models
-- Feito as Interfaces (DaoInterface, TableModelInterface)
-- Criado o layout principal da tela de pesquisa
-## Continuação
-- Fazer método para configurar ( deve receber um TableModel Iterface )
-```
-    O Método configurar deve guardar a instância do tableModel
-    Limpar os dados da tabela
-    remover as colunas da tabela
-    adicionar as colunas do table model na tabela
-```
-- Fazer o método para o botão pesquisar
-```
-    O método pesquisar deve limpar os itens da tabela
-    Adicionar os itens na tabela pelo metódo pesquisar do table model
-```
-### Testes
-- implementar os table models concretos de teste para table model interface
-- Criar uma tela de menu com os botões e um painel para o conteúdo
-- Em cada um dos botões fazer um método para configurar o controller _
-da tela de pesquisa e adicionar o layout no layout principal
+# Atividade Pendente
+## Com base no projeto, criar uma tela (CRUD) para cliente.
+
+### Campos requeridos
+- Nome do cliente
+- Cidade do cliente
+
+## Observações
+- Criar tabelas relacionando cliente a cidade, assim como fizemos com cidade e estado
+- Criar Model
+- Criar Dao/TableModel
+- Criar Form para cliente
+- Configurar LookUp para Cliente
+
+# Entrega
+- até dia 14/11/2019 as 21:00
