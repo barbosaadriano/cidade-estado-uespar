@@ -60,7 +60,12 @@ public class CrudViewController implements Initializable,
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        // TODO
+        lblTitulo.setText("Crud não configurado, inicie pelo menu!");
+        btNovo.setDisable(true);
+        btEditar.setDisable(true);
+        btCancelar.setDisable(true);
+        btRemover.setDisable(true);
+        btnSalvar.setDisable(true);
     }    
 
     @FXML
