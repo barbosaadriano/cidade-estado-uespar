@@ -1,3 +1,10 @@
+# Documentação do Projeto
+## Estrutura de aplicação para manipulação de banco
+![Diagrama do framework de banco](https://raw.githubusercontent.com/barbosaadriano/cidade-estado-uespar/master/docs/ClassDiagram-FrameworkBanco.png)
+
+## Estrutura do sistema
+![Diagrama do sistema](https://raw.githubusercontent.com/barbosaadriano/cidade-estado-uespar/master/docs/ClassDiagram-Telas.png)
+
 # Atividade Pendente
 ## Com base no projeto, criar uma tela (CRUD) para cliente.
 
