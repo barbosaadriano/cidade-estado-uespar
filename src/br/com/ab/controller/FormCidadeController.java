@@ -72,6 +72,7 @@ public class FormCidadeController implements Initializable,
         lookup.setOnSucceeded((evt) -> {
             if (lookup.getValue()!=null) {
                 cidade.setEstado((Estado)lookup.getValue());
+                this.setModel(this.getModel());
             }
             this.hasActiveLookup.setValue(Boolean.FALSE);
             parent.getChildren().remove(lkp.getLayout());

@@ -7,12 +7,13 @@ package cidadeestado;
 
 import br.com.ab.contracts.CrudInterface;
 import br.com.ab.contracts.FormControllerInterface;
+import br.com.ab.contracts.LookUpControllerInterface;
+import br.com.ab.controller.LookUpController;
 import br.com.ab.controller.TelaDePesquisaController;
 import br.com.ab.dao.CidadeDao;
 import br.com.ab.dao.DaoInterface;
 import br.com.ab.dao.EstadoDao;
 import br.com.ab.dao.TableModelInterface;
-import br.com.ab.model.Estado;
 import br.com.ab.services.Conexao;
 import javafx.application.Application;
 import javafx.event.ActionEvent;
@@ -38,6 +39,25 @@ public class CidadeEstado extends Application {
 
         Parent formestado = loadFormEstado.load();
         FormControllerInterface ce = loadFormEstado.getController();
+        
+        FXMLLoader loadFormCidade
+                = new FXMLLoader(
+                        getClass()
+                                .getResource("/br/com/ab/view/FormCidade.fxml")
+                );
+
+        Parent formcidade = loadFormCidade.load();
+        FormControllerInterface cc = loadFormCidade.getController();
+        
+        FXMLLoader loadLookup
+                = new FXMLLoader(
+                        getClass()
+                                .getResource("/br/com/ab/view/LookUp.fxml")
+                );
+
+        Parent formlookup = loadLookup.load();
+        FormControllerInterface cl = loadLookup.getController();
+        
 
         FXMLLoader loadCrudView
                 = new FXMLLoader(
@@ -58,16 +78,21 @@ public class CidadeEstado extends Application {
         FXMLLoader loaderPesquisa = new FXMLLoader(getClass().getResource("/br/com/ab/view/TelaDePesquisa.fxml"));
         Parent bp = loaderPesquisa.load();
         TelaDePesquisaController tpc = loaderPesquisa.getController();
-        /*
+        
         pc.getBtnCidade().addEventHandler(ActionEvent.ACTION, (event) -> {
-            pc.getContainer().getChildren().clear();
-            pc.getContainer().getChildren().add(bp);
-            //TableModelInterface tm = new FalseDaoCidade();
+            ((LookUpController)cl).configurar(
+                    new EstadoDao(Conexao.getInstance().getConn()),
+                    "Pesquisar estado"
+            );
             TableModelInterface tm = new CidadeDao(Conexao.getInstance().getConn());
             tpc.configure(tm);
+            ((LookUpControllerInterface)cc).setLookUp((LookUpControllerInterface)cl);
+            crudController.configurar((DaoInterface)tm, tpc, cc, "Cidades");
+            pc.getContainer().getChildren().clear();
+            pc.getContainer().getChildren().add(crudview);            
             stage.setTitle("Pesquisa de Cidade!");
         });
-        */
+        
         pc.getBtnEstado().addEventHandler(ActionEvent.ACTION, (event) -> {
             TableModelInterface tm = new EstadoDao(Conexao.getInstance().getConn()); 
             tpc.configure(tm);

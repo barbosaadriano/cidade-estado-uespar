@@ -6,9 +6,11 @@
 package br.com.ab.controller;
 
 import br.com.ab.contracts.FormControllerInterface;
+import br.com.ab.contracts.LookUpControllerInterface;
 import br.com.ab.dao.TableModelInterface;
 import java.net.URL;
 import java.util.ResourceBundle;
+import javafx.beans.property.BooleanProperty;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -23,7 +25,7 @@ import javafx.scene.layout.AnchorPane;
  *
  * @author drink
  */
-public class LookUpController implements Initializable, FormControllerInterface {
+public class LookUpController implements Initializable, LookUpControllerInterface {
 
     @FXML
     private AnchorPane apLookUp;
@@ -112,6 +114,16 @@ public class LookUpController implements Initializable, FormControllerInterface 
                     }
                     
         });
+    }
+
+    @Override
+    public void setLookUp(LookUpControllerInterface lkp) {
+        
+    }
+
+    @Override
+    public BooleanProperty hasActiveLookup() {
+        return null;
     }
     
 }

@@ -72,9 +72,10 @@ public class CidadeDao extends AbstractDao implements TableModelInterface {
         if (cid.getId() > 0) {
             sql = this.newInstruction(ISqlInstruction.QueryType.UPDATE);
         }
-        ((ISqlUpdate) sql).addRowData("nome", cid.getNome());
-        ((ISqlUpdate) sql).addRowData("estado_id", Long.toString(cid.getEstado().getId()));
+
         if (sql instanceof ISqlUpdate) {
+            ((ISqlUpdate) sql).addRowData("nome", cid.getNome());
+            ((ISqlUpdate) sql).addRowData("estado_id", Long.toString(cid.getEstado().getId()));
             //update
             ICriteria criterio = new ICriteria();
             criterio.addExpressions(
@@ -88,6 +89,8 @@ public class CidadeDao extends AbstractDao implements TableModelInterface {
         } else if (sql instanceof ISqlInsert) {
             //insert
             ((ISqlInsert) sql).getRowData().put("id", null);
+            ((ISqlInsert) sql).getRowData().put("nome",cid.getNome());
+            ((ISqlInsert) sql).getRowData().put("estado_id",Long.toString(cid.getEstado().getId()));
         }
         try {
             Object ret = this.executeSql(sql);
