@@ -14,6 +14,7 @@ import br.com.ab.dao.CidadeDao;
 import br.com.ab.dao.DaoInterface;
 import br.com.ab.dao.EstadoDao;
 import br.com.ab.dao.TableModelInterface;
+import br.com.ab.factories.ViewFactory;
 import br.com.ab.services.Conexao;
 import javafx.application.Application;
 import javafx.event.ActionEvent;
@@ -31,53 +32,18 @@ public class CidadeEstado extends Application {
     @Override
     public void start(Stage stage) throws Exception {
 
-        FXMLLoader loadFormEstado
-                = new FXMLLoader(
-                        getClass()
-                                .getResource("/br/com/ab/view/FormEstado.fxml")
-                );
-
-        Parent formestado = loadFormEstado.load();
-        FormControllerInterface ce = loadFormEstado.getController();
+  
+        FormControllerInterface ce = ViewFactory.getInstance().loadController("FormEstado");
+        FormControllerInterface cc = ViewFactory.getInstance().loadController("FormCidade");
+        FormControllerInterface cl = ViewFactory.getInstance().loadController("LookUp");        
+        Parent crudview = ViewFactory.getInstance().loadView("CrudView");
+        CrudInterface crudController = ViewFactory.getInstance().loadController("CrudView");
+        FXMLLoader ld = ViewFactory.getInstance().getLoader("/cidadeestado/","FXMLDocument");
+        Parent root = ld.load();
+        FXMLDocumentController pc = ld.getController();
         
-        FXMLLoader loadFormCidade
-                = new FXMLLoader(
-                        getClass()
-                                .getResource("/br/com/ab/view/FormCidade.fxml")
-                );
-
-        Parent formcidade = loadFormCidade.load();
-        FormControllerInterface cc = loadFormCidade.getController();
-        
-        FXMLLoader loadLookup
-                = new FXMLLoader(
-                        getClass()
-                                .getResource("/br/com/ab/view/LookUp.fxml")
-                );
-
-        Parent formlookup = loadLookup.load();
-        FormControllerInterface cl = loadLookup.getController();
-        
-
-        FXMLLoader loadCrudView
-                = new FXMLLoader(
-                        getClass()
-                                .getResource("/br/com/ab/view/CrudView.fxml")
-                );
-
-        Parent crudview = loadCrudView.load();
-        CrudInterface crudController = loadCrudView.getController();
-        
-        
-
-        // Carrega o leiaute e o controller Principal
-        FXMLLoader loaderPrincipal = new FXMLLoader(getClass().getResource("FXMLDocument.fxml"));
-        Parent root = loaderPrincipal.load();
-        FXMLDocumentController pc = loaderPrincipal.getController();
-        // Carrega o leiaute e o controller de pesquisa
-        FXMLLoader loaderPesquisa = new FXMLLoader(getClass().getResource("/br/com/ab/view/TelaDePesquisa.fxml"));
-        Parent bp = loaderPesquisa.load();
-        TelaDePesquisaController tpc = loaderPesquisa.getController();
+        Parent bp = ViewFactory.getInstance().loadView("TelaDePesquisa");
+        TelaDePesquisaController tpc = ViewFactory.getInstance().loadController("TelaDePesquisa");
         
         pc.getBtnCidade().addEventHandler(ActionEvent.ACTION, (event) -> {
             ((LookUpController)cl).configurar(
@@ -113,16 +79,7 @@ public class CidadeEstado extends Application {
      */
     public static void main(String[] args) {
         launch(args);
-        /**
-         * Estado e = new Estado(); e.setId(1); e.setNome("PARANÁ");
-         * e.setUf("PR");
-         *
-         * Cidade c = new Cidade(); c.setId(1); c.setNome("Palotina");
-         * c.setEstado(e);
-         *
-         * System.out.println(c.getEstado().getNome());
-         * System.out.println(c.getEstado().getNome().replace("A", "I"));
-         */
+     
     }
 
 }
