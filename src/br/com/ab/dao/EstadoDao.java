@@ -125,9 +125,13 @@ public class EstadoDao extends AbstractDao implements TableModelInterface {
     public ArrayList<TableColumn<Object, Object>> getCols() {
         ArrayList<TableColumn<Object, Object>> cols = new ArrayList<>();
         TableColumn<Object, Object> nome = new TableColumn<>("Nome estado");
+        nome.setPrefWidth(200D);
+        nome.setResizable(false);
         nome.setCellValueFactory(new PropertyValueFactory<>("nome"));
         cols.add(nome);
         TableColumn<Object, Object> uf = new TableColumn<>("Sigla");
+        uf.setPrefWidth(50D);
+        uf.setResizable(false);
         uf.setCellValueFactory(new PropertyValueFactory<>("uf"));
         cols.add(uf);
         return cols;

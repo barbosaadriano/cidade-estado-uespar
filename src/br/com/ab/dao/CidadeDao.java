@@ -133,9 +133,13 @@ public class CidadeDao extends AbstractDao implements TableModelInterface {
     public ArrayList<TableColumn<Object, Object>> getCols() {
         ArrayList<TableColumn<Object, Object>> cols = new ArrayList<>();
         TableColumn<Object, Object> nome = new TableColumn<>("Cidade Nome");
+        nome.setPrefWidth(300D);
+        nome.setResizable(false);
         nome.setCellValueFactory(new PropertyValueFactory<>("nome"));
         cols.add(nome);
         TableColumn<Object, Object> est = new TableColumn<>("Estado");
+        est.setPrefWidth(200D);
+        est.setResizable(false);
         est.setCellValueFactory(new PropertyValueFactory<>("estado"));
         cols.add(est);
         return cols;

@@ -62,6 +62,7 @@ public class FXMLDocumentController implements Initializable {
     @FXML
     private void inicioClick(ActionEvent event) {
         container.getChildren().clear();
+        CidadeEstado.stagep.setTitle("");
     }
     
 }

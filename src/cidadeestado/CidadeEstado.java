@@ -9,6 +9,7 @@ import br.com.ab.factories.CidadeCrudBuilder;
 import br.com.ab.factories.CrudControllerFactory;
 import br.com.ab.factories.EstadoCrudBuilder;
 import br.com.ab.factories.ViewFactory;
+import br.com.ab.services.Conexao;
 import javafx.application.Application;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXMLLoader;
@@ -22,9 +23,11 @@ import javafx.stage.Stage;
  */
 public class CidadeEstado extends Application {
 
+    public static Stage stagep;
+    
     @Override
     public void start(Stage stage) throws Exception {
-
+        
         //Configura o loader
         FXMLLoader ld = ViewFactory.getInstance().getLoader("/cidadeestado/", "FXMLDocument");
         // Carrega o formulário principal
@@ -36,6 +39,7 @@ public class CidadeEstado extends Application {
         CrudControllerFactory ccf = CrudControllerFactory.getInstance();
         //Fabrica o controller
         ccf.makeController();
+        
         //Adiciona um configurador para o nome cidade
         ccf.getCrudConfigurer().put("cidade", CidadeCrudBuilder.getCidadeConfigurer());
         //Adiciona um configurador para o nome estado
@@ -78,6 +82,7 @@ public class CidadeEstado extends Application {
         //seta a cena no stage
         stage.setScene(scene);
         //abre o stage
+        stagep = stage;
         stage.show();
     }
 
